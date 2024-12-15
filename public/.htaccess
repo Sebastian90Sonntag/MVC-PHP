@@ -1,0 +1,17 @@
+# Enable mod_rewrite
+RewriteEngine On
+
+# Prevent direct access to root or subdirectories
+RewriteRule ^(.*)/?$ - [F,L]
+
+# Check if the requested file or directory exists
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirect clean URLs to index.php
+RewriteRule ^.*$ index.php [L,QSA]
+
+# Protect .htaccess file itself
+<Files .htaccess>
+    Require all denied
+</Files>
